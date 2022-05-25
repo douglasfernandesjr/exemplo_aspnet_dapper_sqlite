@@ -8,6 +8,6 @@ namespace tarefas.webapi.Repository
 	public class TarefaRepository
 	{
 
-
+		//https://dotnetcorecentral.com/blog/how-to-use-sqlite-with-dapper/
 	}
 }
