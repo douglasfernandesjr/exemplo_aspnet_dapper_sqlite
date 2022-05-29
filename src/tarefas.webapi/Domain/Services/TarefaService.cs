@@ -15,16 +15,16 @@ namespace tarefas.webapi.Domain.Services
 		{
 			this.repositorio = repositorio;
 		}
-		public bool CriarNovaTarefa(TarefaCreateModel model)
+		public ResultadoOperacao<bool> CriarNovaTarefa(TarefaCreateModel model)
 		{
 			if (model == null || model.Descricao == null || string.IsNullOrWhiteSpace(model.Descricao))
 			{
-				return false;
+				return new ResultadoOperacao<bool>(false).AdicionarMensagemErro("Descricao não pode ser nulo ou vazio");
 			}
 			else
 			{
 				repositorio.Criar(model.Descricao, false);
-				return true;
+				return new ResultadoOperacao<bool>(true);
 			}
 
 		}

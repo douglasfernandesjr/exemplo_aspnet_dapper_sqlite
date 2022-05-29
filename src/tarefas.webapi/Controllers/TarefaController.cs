@@ -32,12 +32,12 @@ namespace tarefas.webapi.Controllers
 		{
 			var resultado = service.CriarNovaTarefa(model);
 
-			if (resultado == true)
+			if (resultado.Sucesso)
 			{
 				return Ok();
 			}
 			else {
-				return BadRequest();
+				return BadRequest(resultado);
 			}
 		}
 
