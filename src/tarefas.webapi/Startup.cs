@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using tarefas.webapi.Database;
+using tarefas.webapi.Domain.Services;
+using tarefas.webapi.Repository;
 
 namespace tarefas.webapi
 {
@@ -37,6 +39,11 @@ namespace tarefas.webapi
             services.AddSingleton(new DatabaseConfig(Configuration["ConnectionString"]));
 
             services.AddSingleton<IDatabaseSetup, SqliteDatabaseSetup>();
+
+            services.AddTransient<TarefaRepository>();
+
+            services.AddTransient<TarefaService>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

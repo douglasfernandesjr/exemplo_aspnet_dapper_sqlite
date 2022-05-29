@@ -14,21 +14,22 @@ namespace tarefas.webapi.Controllers
 	[ApiController]
 	public class TarefaController : ControllerBase
 	{
+		private readonly TarefaService service;
+		public TarefaController(TarefaService service)
+		{
+			this.service = service;
+		}
 
 		[HttpGet]
 		public IActionResult GetTarefas()
 		{
-			var lista = new List<Tarefa>();
-			lista.Add(new Tarefa() { IdTarefa = 1, Descricao = "descricao", Concluido = false });
-			return Ok(lista);
+			return Ok(service.Listar());
 		}
 
 
 		[HttpPost]
 		public IActionResult Post(TarefaCreateModel model)
 		{
-			var service = new TarefaService();
-
 			var resultado = service.CriarNovaTarefa(model);
 
 			if (resultado == true)
