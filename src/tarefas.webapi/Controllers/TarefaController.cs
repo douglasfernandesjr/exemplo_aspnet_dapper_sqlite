@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using tarefas.webapi.Domain.ApiModel;
-using tarefas.webapi.Domain.Entities;
 using tarefas.webapi.Domain.Services;
 
 namespace tarefas.webapi.Controllers
@@ -36,7 +30,46 @@ namespace tarefas.webapi.Controllers
 			{
 				return Ok();
 			}
-			else {
+			else
+			{
+				return BadRequest(resultado);
+			}
+		}
+
+		[HttpPut("{idTarefa}")]
+		public IActionResult Put(int idTarefa, TarefaUpdateModel model)
+		{
+			var resultado = service.Atualizar(idTarefa, model);
+
+			if (resultado.Sucesso)
+			{
+				return Ok();
+			}
+			else if (resultado.StatusRetorno == StatusResultadoOperacao.NaoEncontrado)
+			{
+				return NotFound(resultado);
+			}
+			else
+			{
+				return BadRequest(resultado);
+			}
+		}
+
+		[HttpDelete("{idTarefa}")]
+		public IActionResult Delete(int idTarefa)
+		{
+			var resultado = service.Deletar(idTarefa);
+
+			if (resultado.Sucesso)
+			{
+				return Ok();
+			}
+			else if (resultado.StatusRetorno == StatusResultadoOperacao.NaoEncontrado)
+			{
+				return NotFound(resultado);
+			}
+			else
+			{
 				return BadRequest(resultado);
 			}
 		}
