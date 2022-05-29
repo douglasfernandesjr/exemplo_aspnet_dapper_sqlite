@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using tarefas.webapi.Database;
 
 namespace tarefas.webapi
 {
@@ -32,10 +33,14 @@ namespace tarefas.webapi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "tarefas.webapi", Version = "v1" });
             });
+
+            services.AddSingleton(new DatabaseConfig(Configuration["ConnectionString"]));
+
+            services.AddSingleton<IDatabaseSetup, SqliteDatabaseSetup>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +59,8 @@ namespace tarefas.webapi
             {
                 endpoints.MapControllers();
             });
+
+            serviceProvider.GetService<IDatabaseSetup>().RunSetup();
         }
     }
 }
