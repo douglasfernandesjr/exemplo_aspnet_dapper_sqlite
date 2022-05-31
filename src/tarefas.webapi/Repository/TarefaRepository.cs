@@ -18,8 +18,6 @@ namespace tarefas.webapi.Repository
 			this.databaseConfig = databaseConfig;
 		}
 
-
-
 		private const string criar_sql = "INSERT INTO Tarefa (Descricao, Concluido)" +
 				"VALUES (@Descricao, @Concluido);";
 		private const string selecionarPorId_sql = "SELECT IdTarefa, Descricao, Concluido FROM Tarefa where IdTarefa = @IdTarefa;";

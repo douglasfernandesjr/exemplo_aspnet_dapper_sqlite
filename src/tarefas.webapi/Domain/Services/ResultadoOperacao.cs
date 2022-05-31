@@ -11,7 +11,7 @@ namespace tarefas.webapi.Domain.Services
 		Sucesso,
 		NaoEncontrado,
 		DadosInvalidos,
-		ErrosInterno
+		ErroInterno
 	}
 	public class ResultadoOperacao<T>
 	{

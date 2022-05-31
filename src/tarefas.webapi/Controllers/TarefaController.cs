@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using tarefas.webapi.Domain.ApiModel;
 using tarefas.webapi.Domain.Services;
 
@@ -17,7 +18,15 @@ namespace tarefas.webapi.Controllers
 		[HttpGet]
 		public IActionResult GetTarefas()
 		{
-			return Ok(service.Listar());
+			var resultado = service.Listar();
+			if (resultado.Sucesso)
+			{
+				return Ok(resultado.ObjetoRetorno);
+			}
+			else
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, resultado);
+			}
 		}
 
 

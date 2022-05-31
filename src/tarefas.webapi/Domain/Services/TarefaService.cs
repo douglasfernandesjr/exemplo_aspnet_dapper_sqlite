@@ -67,9 +67,20 @@ namespace tarefas.webapi.Domain.Services
 			return new ResultadoOperacao<bool>(true);
 		}
 
-		public IEnumerable<Tarefa> Listar()
+		public ResultadoOperacao<IEnumerable<Tarefa>> Listar()
 		{
-			return repositorio.SelecionarTodos();
+			try
+			{
+				var lista = repositorio.SelecionarTodos();
+				var resposta = new ResultadoOperacao<IEnumerable<Tarefa>>(lista);
+
+				return resposta;
+			}
+			catch (Exception ex) {
+				// logger.save(ex) -- em um cenário real
+				var resposta = new ResultadoOperacao<IEnumerable<Tarefa>>(null).AtualizarStatus(StatusResultadoOperacao.ErroInterno).AdicionarMensagemErro("Erro interno ao realizar operação!");
+				return resposta;
+			}
 		}
 	}
 }
