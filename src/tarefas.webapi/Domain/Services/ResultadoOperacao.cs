@@ -22,11 +22,12 @@ namespace tarefas.webapi.Domain.Services
 			Erros = new List<string>();
 		}
 
-		public ResultadoOperacao<T> AdicionarMensagemErro(string erro) {
+		public ResultadoOperacao<T> AdicionarMensagemErro(string erro)
+		{
 			Erros.Add(erro);
 			return this;
 		}
-		public ResultadoOperacao<T> AtualizarStatus( StatusResultadoOperacao status)
+		public ResultadoOperacao<T> AtualizarStatus(StatusResultadoOperacao status)
 		{
 			StatusRetorno = status;
 			return this;

@@ -79,6 +79,7 @@ namespace tarefas.webapi.Domain.Services
 			catch (Exception ex) {
 				// logger.save(ex) -- em um cenário real
 				var resposta = new ResultadoOperacao<IEnumerable<Tarefa>>(null).AtualizarStatus(StatusResultadoOperacao.ErroInterno).AdicionarMensagemErro("Erro interno ao realizar operação!");
+
 				return resposta;
 			}
 		}
