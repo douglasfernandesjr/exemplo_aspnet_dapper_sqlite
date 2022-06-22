@@ -6,48 +6,50 @@ using System.Threading.Tasks;
 
 namespace tarefas.webapi.Domain.Services
 {
-	public enum StatusResultadoOperacao
-	{
-		Sucesso,
-		NaoEncontrado,
-		DadosInvalidos,
-		ErroInterno
-	}
-	public class ResultadoOperacao<T>
-	{
-		public ResultadoOperacao(T objetoRetorno)
-		{
-			ObjetoRetorno = objetoRetorno;
-			StatusRetorno = StatusResultadoOperacao.Sucesso;
-			Erros = new List<string>();
-		}
+    public enum StatusResultadoOperacao
+    {
+        Sucesso,
+        NaoEncontrado,
+        DadosInvalidos,
+        ErroInterno
+    }
 
-		public ResultadoOperacao<T> AdicionarMensagemErro(string erro)
-		{
-			Erros.Add(erro);
-			return this;
-		}
-		public ResultadoOperacao<T> AtualizarStatus(StatusResultadoOperacao status)
-		{
-			StatusRetorno = status;
-			return this;
-		}
-		public ResultadoOperacao<T> AdicionarMensagemErro(string erro, StatusResultadoOperacao status)
-		{
-			AdicionarMensagemErro(erro);
-			AtualizarStatus(status);
-			return this;
-		}
+    public class ResultadoOperacao<T>
+    {
+        public ResultadoOperacao(T objetoRetorno)
+        {
+            ObjetoRetorno = objetoRetorno;
+            StatusRetorno = StatusResultadoOperacao.Sucesso;
+            Erros = new List<string>();
+        }
 
-		[JsonIgnore]
-		public StatusResultadoOperacao StatusRetorno { get; private set; }
+        public ResultadoOperacao<T> AdicionarMensagemErro(string erro)
+        {
+            Erros.Add (erro);
+            return this;
+        }
 
-		[JsonIgnore]
-		public T ObjetoRetorno { get; private set; }
+        public ResultadoOperacao<T> AtualizarStatus(StatusResultadoOperacao status)
+        {
+            StatusRetorno = status;
+            return this;
+        }
 
-		public bool Sucesso => StatusRetorno == StatusResultadoOperacao.Sucesso;
+        public ResultadoOperacao<T> AdicionarMensagemErro(string erro, StatusResultadoOperacao status)
+        {
+            AdicionarMensagemErro (erro);
+            AtualizarStatus (status);
+            return this;
+        }
 
-		public List<String> Erros { get; private set; }
+        [JsonIgnore]
+        public StatusResultadoOperacao StatusRetorno { get; private set; }
 
-	}
+        [JsonIgnore]
+        public T ObjetoRetorno { get; private set; }
+
+        public bool Sucesso => StatusRetorno == StatusResultadoOperacao.Sucesso;
+
+        public List<String> Erros { get; private set; }
+    }
 }
